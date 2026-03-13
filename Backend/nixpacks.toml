@@ -1,2 +1,2 @@
 [phases.setup]
-aptPkgs = ["libatomic1"]
+cmds = ["bash install_deps.sh"]
