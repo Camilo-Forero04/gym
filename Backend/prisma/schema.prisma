@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-py" 
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String            @id @default(uuid())
+  email        String            @unique
+  name         String?
+  createdAt    DateTime          @default(now())
+  prefersLbs   Boolean           @default(false)
+  measurements BodyMeasurement[]
+  workouts     Workout[]
+}
+
+model BodyMeasurement {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  weight    Float    
+  date      DateTime @default(now())
+}
+
+model Exercise {
+  id           String       @id @default(uuid())
+  name         String       @unique
+  muscleGroup  String   
+  isCompound   Boolean      @default(false)
+  isUnilateral Boolean      @default(false) 
+  sets         WorkoutSet[] 
+}
+
+model Workout {
+  id        String       @id @default(uuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id])
+  date      DateTime     @default(now())
+  notes     String?
+  sets      WorkoutSet[] 
+}
+
+model WorkoutSet {
+  id           String   @id @default(uuid())
+  workoutId    String
+  workout      Workout  @relation(fields: [workoutId], references: [id])
+  exerciseId   String
+  exercise     Exercise @relation(fields: [exerciseId], references: [id])
+  weight       Float    
+  isBodyweight Boolean  @default(false) 
+  reps         Int
+  rpe          Float?   
+  isWarmup     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  name      String
+  weight    Float?    // Para cálculos de fuerza relativa
+  height    Int?      
+  createdAt DateTime  @default(now())
+  workouts  Workout[] // Relación: Un usuario tiene muchos entrenamientos
+}
+
+// Actualiza tu modelo Workout para que apunte al User
+model Workout {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  date      DateTime @default(now())
+  sets      WorkoutSet[]
+}
