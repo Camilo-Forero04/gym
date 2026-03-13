@@ -57,21 +57,5 @@ model WorkoutSet {
   createdAt    DateTime @default(now())
 }
 
-model User {
-  id        String    @id @default(uuid())
-  email     String    @unique
-  name      String
-  weight    Float?    // Para cálculos de fuerza relativa
-  height    Int?      
-  createdAt DateTime  @default(now())
-  workouts  Workout[] // Relación: Un usuario tiene muchos entrenamientos
-}
 
-// Actualiza tu modelo Workout para que apunte al User
-model Workout {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  date      DateTime @default(now())
-  sets      WorkoutSet[]
-}
+
