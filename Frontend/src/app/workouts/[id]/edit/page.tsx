@@ -6,7 +6,7 @@ import Link from 'next/link';
 async function getExercises() {
   // Aseguramos que la URL base no termine en slash para evitar errores
   const baseUrl = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
-  const res = await fetch(`${baseUrl}/exercises`, { cache: 'no-store' });
+  const res = await fetch(`${baseUrl}/api/v1/exercises`, { cache: 'no-store' });
   if (!res.ok) return [];
   const json = await res.json();
   return json.data;

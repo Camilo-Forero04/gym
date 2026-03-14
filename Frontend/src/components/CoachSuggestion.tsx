@@ -57,7 +57,7 @@ export default function CoachSuggestion({ exerciseId, userId, currentWeight, cur
       setIsLoading(true);
       try {
         const baseUrl = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
-        const res = await fetch(`${baseUrl}/users/${userId}/exercises/${exerciseId}/suggestion`);
+        const res = await fetch(`${baseUrl}/users/${userId}/api/v1/exercises/${exerciseId}/suggestion`);
         if (res.ok) setDbData(await res.json());
       } catch (error) {
         console.error("Error cargando la predicción del Coach:", error);
