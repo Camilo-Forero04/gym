@@ -45,7 +45,7 @@ const calculateNextGoal = (weight: number, reps: number, historicalMax: number =
   return { nextWeight: Math.round(nextWeight * 10) / 10, nextReps, reason, isAdjustment: false };
 };
 
-export default function CoachSuggestion({ exerciseId, userId, currentWeight, currentReps }: any) {
+export default function CoachSuggestion({ exerciseId, userId, currentWeight, currentReps, unit = "kg" }: any) {
   const [dbData, setDbData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -57,7 +57,7 @@ export default function CoachSuggestion({ exerciseId, userId, currentWeight, cur
       setIsLoading(true);
       try {
         const baseUrl = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
-        const res = await fetch(`${baseUrl}/users/${userId}/api/v1/exercises/${exerciseId}/suggestion`);
+        const res = await fetch(`${baseUrl}/api/v1/users/${userId}/exercises/${exerciseId}/suggestion`);
         if (res.ok) setDbData(await res.json());
       } catch (error) {
         console.error("Error cargando la predicción del Coach:", error);
@@ -102,8 +102,8 @@ export default function CoachSuggestion({ exerciseId, userId, currentWeight, cur
       title: "⚠️ ALERTA: BAJO RENDIMIENTO",
       weight: historicalMax, 
       reps: "8",
-      // Mensaje dinámico que expone la diferencia real de fuerza
-      reason: `No aceptamos regresiones. Tu fuerza actual equivale a ${Math.round(currentEquivalent8RM)}kg. Tu meta real es ${historicalMax}kg. ¡Sube el peso!`,
+      // Mensaje dinámico que expone la diferencia real de fuerza con la unidad correcta
+      reason: `No aceptamos regresiones. Tu fuerza actual equivale a ${Math.round(currentEquivalent8RM)} ${unit}. Tu meta real es ${historicalMax} ${unit}. ¡Sube el peso!`,
       colorClass: "bg-red-950/20 border-red-500/40 text-red-500"
     };
   } else if (isTyping) {
@@ -134,7 +134,8 @@ export default function CoachSuggestion({ exerciseId, userId, currentWeight, cur
       <div className="flex gap-4">
         <div>
           <p className="text-[9px] text-zinc-500 uppercase font-bold">Peso Meta</p>
-          <p className="text-xl font-black text-white">{displayData.weight || "--"} kg</p>
+          {/* Aquí mostramos la unidad dinámica */}
+          <p className="text-xl font-black text-white">{displayData.weight || "--"} {unit}</p>
         </div>
         <div className="border-l border-zinc-800/50 pl-4">
           <p className="text-[9px] text-zinc-500 uppercase font-bold">Reps Meta</p>

@@ -365,6 +365,7 @@ export default function WorkoutForm({ exercises }: { exercises: any[] }) {
         userId={USER_ID} 
         currentWeight={Number(set.weight)} 
         currentReps={Number(set.reps)} 
+        unit={set.unit}
       />
       </div>
     )}

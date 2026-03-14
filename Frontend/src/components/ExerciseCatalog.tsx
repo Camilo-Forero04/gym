@@ -20,7 +20,7 @@ export default function ExerciseCatalog() {
     const fetchExercises = async () => {
       try {
         const baseUrl = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/$/, "");
-        const res = await fetch(`${baseUrl}/api/v1/exercises`);
+        const res = await fetch(`${baseUrl}api/v1/exercises`);
         if (res.ok) {
           const json = await res.json();
           const sorted = (json.data as Exercise[]).sort((a, b) => 
