@@ -137,7 +137,7 @@ function SearchableExerciseSelect({
                   {muscle}
                 </div>
                 
-                {exList.map(ex => {
+                {(exList as any[]).map((ex: any) => {
                   // Encontramos la posición exacta de este ejercicio para el teclado
                   const flatIndex = filteredExercises.findIndex(f => f.id === ex.id);
                   const isHighlighted = highlightedIndex === flatIndex;
