@@ -39,7 +39,7 @@ export default function BodyWeightWidget({ measurements }: { measurements: BodyM
     setError("");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/measurements`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/measurements`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
