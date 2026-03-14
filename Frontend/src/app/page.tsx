@@ -44,16 +44,16 @@ export default async function Home() {
   // Obtenemos entrenamientos, ejercicios y medidas al mismo tiempo
   
   // A. Entrenamientos del usuario
-  const workoutsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/workouts?userId=${USER_ID}`, { cache: 'no-store' });
+  const workoutsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/workouts?userId=${USER_ID}`, { cache: 'no-store' });
   const userWorkouts = workoutsRes.ok ? await workoutsRes.json() : [];
 
   // B. Catálogo de ejercicios
-  const exercisesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/exercises`, { cache: 'no-store' });
+  const exercisesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/exercises`, { cache: 'no-store' });
   const exercisesData = exercisesRes.ok ? await exercisesRes.json() : { data: [] };
   const exercises = exercisesData.data || [];
 
   // C. Historial de peso corporal
-  const measurementsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${USER_ID}/measurements`, { cache: 'no-store' });
+  const measurementsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/${USER_ID}/measurements`, { cache: 'no-store' });
   const measurementsData = measurementsRes.ok ? await measurementsRes.json() : { data: [] };
   const measurements = measurementsData.data || [];
 

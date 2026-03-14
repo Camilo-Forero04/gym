@@ -5,7 +5,7 @@ export default function StrengthRecords({ userId }: { userId: string }) {
   const [records, setRecords] = useState<any>({});
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}/records`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/users/${userId}/records`)
       .then(res => res.json())
       .then(data => setRecords(data));
   }, [userId]);

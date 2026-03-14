@@ -230,7 +230,7 @@ export default function WorkoutForm({ exercises }: { exercises: any[] }) {
     setError("");
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/workouts`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/workouts`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

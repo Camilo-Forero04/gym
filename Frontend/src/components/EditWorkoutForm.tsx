@@ -188,7 +188,7 @@ export default function EditWorkoutForm({
 
     try {
       // AQUÍ LA MAGIA: Hacemos un PUT a la ruta con el ID de la rutina
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/workouts/${initialWorkout.id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/workouts/${initialWorkout.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -3,7 +3,7 @@ import WorkoutForm from '../../components/WorkoutForm';
 
 // Fetch para traer los ejercicios al servidor antes de pintar la pantalla
 async function getExercises() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/exercises`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/exercises`, {
     cache: 'no-store'
   });
   if (!res.ok) return [];
